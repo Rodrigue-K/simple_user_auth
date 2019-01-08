@@ -14,5 +14,6 @@ describe User do
     user = User.create(email: "test@test.com", password: "Password")
     expect(User.authenticate("test@test.com", "Password")).to eq (user)
   end
+  
 
 end
