@@ -23,13 +23,21 @@ class UserAuth < Sinatra::Base
     erb :signup
   end
 
+  # get '/signup/error' do
+  #   erb :error
+  #   @user.errors do |e|
+  #     p e
+  #   end
+  # end
+
   post '/signup' do
-    user = User.create(email: params[:email], password: params[:password])
-    if user
-      session[:user_id] = user.id
+    @user = User.new(email: params[:email], password: params[:password])
+    if @user.valid?
+      @user = User.create(email: params[:email], password: params[:password])
+      session[:user_id] = @user.id
       redirect '/profile'
     else
-      redirect '/'
+      erb :error
     end
   end
 
